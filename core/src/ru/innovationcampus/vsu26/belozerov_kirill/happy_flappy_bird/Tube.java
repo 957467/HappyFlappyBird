@@ -1,50 +1,81 @@
 package ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird;
 import static ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.MyGdxGame.SCR_HEIGHT;
 import static ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.MyGdxGame.SCR_WIDTH;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 
-import java.util.Random;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
+
 public class Tube {
-    Texture textureUpperTube;
-    Texture textureDownTube;
-    Random random;
-    int x, gapY;
-    int distanceBetweenTubes;
-    int speed = 10;
-    final int width = 200;
-    final int height = 700;
-    int gapHeight = 400;
-    int padding = 100;
-    public Tube(int tubeCount, int tubeIdx) {
-        random = new Random();
-        gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
-        distanceBetweenTubes = (SCR_WIDTH + width) / (tubeCount - 1);
-        x = distanceBetweenTubes * tubeIdx + SCR_WIDTH;
+    final int pointCounterMarginTop = 400;
+    final int pointCounterMarginRight = 60;
 
-        textureUpperTube = new Texture("tubes/tube_flipped.png");
-        textureDownTube = new Texture("tubes/tube.png");
+    MyGdxGame myGdxGame;
+
+    Bird bird;
+    PointCounter pointCounter;
+
+    int tubeCount = 3;
+    Tube[] tubes;
+
+    int gamePoints;
+    boolean isGameOver;
+    private Tube textureUpperTube;
+    private Tube textureDownTube;
+
+    Tube(MyGdxGame myGdxGame) {
+        this.myGdxGame = myGdxGame;
+
+        initTubes();
+        bird = new Bird(20, SCR_HEIGHT / 2, 10, 250, 200);
+        pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginTop, SCR_HEIGHT - pointCounterMarginRight);
     }
-    void draw(Batch batch) {
-        batch.draw(textureUpperTube, x, gapY + gapHeight / 2, width, height);
-        batch.draw(textureDownTube, x, gapY - gapHeight / 2 - height, width, height);
+
+    public Tube(int tubeCount, int i) {
     }
-    void move() {
-        x -= speed;
-        if (x < -width) {
-            x = SCR_WIDTH + distanceBetweenTubes;
-            gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
+
+    private void initTubes() {
+    }
+
+    public void show() {
+        gamePoints = 0;
+        isGameOver = false;
+    }
+
+    public void render(float delta) {
+
+        if (Gdx.input.justTouched()) {
+            bird.onClick();
+        }
+
+        bird.fly();
+        if (!bird.isInField()) {
+            System.out.println("not in field");
+            isGameOver = true;
         }
     }
-    public boolean isHit(Bird bird) {
-        if (bird.y <= gapY - gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x + width)
-            return true;
-        if (bird.y + bird.height >= gapY + gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x + width)
-            return true;
-        return false;
+
+    void draw(SpriteBatch batch) {
+
     }
+
+    private void hide() {
+
+    }
+
     void dispose() {
         textureDownTube.dispose();
         textureUpperTube.dispose();
+    }
+
+    public void move() {
+    }
+
+    public boolean isHit(Bird bird) {
+        return false;
+    }
+
+    public boolean wait(Bird bird) {
+        return false;
     }
 }
