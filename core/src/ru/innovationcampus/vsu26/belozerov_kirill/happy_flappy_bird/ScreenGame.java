@@ -6,13 +6,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.ScreenUtils;
 public class ScreenGame implements Screen {
-    final int pointCounterMarginTop = 400;
-    final int pointCounterMarginRight = 60;
+    final int pointCounterMarginTop = 60;
+    final int pointCounterMarginRight = 400;
 
     MyGdxGame myGdxGame;
 
     Bird bird;
     PointCounter pointCounter;
+    MovingBackground background;
 
     int tubeCount = 3;
     Tube[] tubes;
@@ -24,8 +25,9 @@ public class ScreenGame implements Screen {
         this.myGdxGame = myGdxGame;
 
         initTubes();
+        background = new MovingBackground();
         bird = new Bird(20, SCR_HEIGHT / 2, 10, 250, 200);
-        pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginTop, SCR_HEIGHT - pointCounterMarginRight);
+        pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginRight, SCR_HEIGHT - pointCounterMarginTop);
     }
 
 
@@ -42,6 +44,7 @@ public class ScreenGame implements Screen {
             bird.onClick();
         }
 
+        background.move();
         bird.fly();
         if (!bird.isInField()) {
             System.out.println("not in field");
@@ -52,9 +55,9 @@ public class ScreenGame implements Screen {
             if (tube.isHit(bird)) {
                 isGameOver = true;
                 System.out.println("hit");
-            } else if (tube.wait(bird)) {
+            } else if (tube.needAddPoint(bird)) {
                 gamePoints += 1;
-                tube.toString();
+                tube.setPointReceived();
                 System.out.println(gamePoints);
             }
         }
@@ -63,7 +66,8 @@ public class ScreenGame implements Screen {
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         myGdxGame.batch.begin();
-        MovingBackground.draw(myGdxGame.batch);
+
+        background.draw(myGdxGame.batch);
         bird.draw(myGdxGame.batch);
         for (Tube tube : tubes) tube.draw(myGdxGame.batch);
         pointCounter.draw(myGdxGame.batch, gamePoints);
@@ -94,6 +98,7 @@ public class ScreenGame implements Screen {
     @Override
     public void dispose() {
         bird.dispose();
+        background.dispose();
         pointCounter.dispose();
         for (int i = 0; i < tubeCount; i++) {
             tubes[i].dispose();
