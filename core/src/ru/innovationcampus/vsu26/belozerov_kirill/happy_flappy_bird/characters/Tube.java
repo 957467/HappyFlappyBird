@@ -1,4 +1,4 @@
-package ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird;
+package ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.characters;
 import static ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.MyGdxGame.SCR_HEIGHT;
 import static ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.MyGdxGame.SCR_WIDTH;
 
@@ -39,12 +39,12 @@ public class Tube {
         isPointReceived = false;
     }
 
-    void draw(Batch batch) {
+    public void draw(Batch batch) {
         batch.draw(textureUpperTube, x, gapY + gapHeight / 2, width, height);
         batch.draw(textureDownTube, x, gapY - gapHeight / 2 - height, width, height);
     }
 
-    void move() {
+    public void move() {
         x -= speed;
         if (x < -width) {
             isPointReceived = false;
@@ -73,7 +73,7 @@ public class Tube {
         isPointReceived = true;
     }
 
-    void dispose() {
+    public void dispose() {
         textureDownTube.dispose();
         textureUpperTube.dispose();
     }

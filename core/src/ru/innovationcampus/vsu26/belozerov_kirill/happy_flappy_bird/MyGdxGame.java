@@ -1,15 +1,20 @@
 package ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.Screens.ScreenGame;
+import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.Screens.ScreenRestart;
+
 public class MyGdxGame extends Game {
 	public SpriteBatch batch;
 	public OrthographicCamera camera;
 
 	public static final int SCR_WIDTH = 1280, SCR_HEIGHT = 720;
 
-	ScreenGame screenGame;
+	public ScreenGame screenGame;
+	public ScreenRestart screenRestart;
 
 	@Override
 	public void create() {

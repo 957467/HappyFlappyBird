@@ -1,11 +1,18 @@
-package ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird;
+package ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.Screens;
 import static ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.MyGdxGame.SCR_HEIGHT;
 import static ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.MyGdxGame.SCR_WIDTH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.characters.Bird;
+import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.Components.MovingBackground;
+import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.MyGdxGame;
+import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.Components.PointCounter;
+import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.characters.Tube;
 public class ScreenGame implements Screen {
+
     final int pointCounterMarginTop = 60;
     final int pointCounterMarginRight = 400;
 
@@ -21,11 +28,11 @@ public class ScreenGame implements Screen {
     int gamePoints;
     boolean isGameOver;
 
-    ScreenGame(MyGdxGame myGdxGame) {
+    public ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
 
         initTubes();
-        background = new MovingBackground();
+        background = new MovingBackground("backgrounds/game_bg.png");
         bird = new Bird(20, SCR_HEIGHT / 2, 10, 250, 200);
         pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginRight, SCR_HEIGHT - pointCounterMarginTop);
     }
@@ -35,10 +42,17 @@ public class ScreenGame implements Screen {
     public void show() {
         gamePoints = 0;
         isGameOver = false;
+        bird.setY(SCR_HEIGHT / 2);
+        initTubes();
     }
 
     @Override
     public void render(float delta) {
+
+        if (isGameOver) {
+            myGdxGame.screenRestart.gamePoints = gamePoints;
+            myGdxGame.setScreen(myGdxGame.screenRestart);
+        }
 
         if (Gdx.input.justTouched()) {
             bird.onClick();
