@@ -23,6 +23,7 @@ public class MyGdxGame extends Game {
 		camera.setToOrtho(false, SCR_WIDTH, SCR_HEIGHT);
 
 		screenGame = new ScreenGame(this);
+		screenRestart = new ScreenRestart(this);
 		setScreen(screenGame);
 	}
 

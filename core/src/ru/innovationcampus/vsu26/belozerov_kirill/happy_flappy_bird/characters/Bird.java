@@ -67,6 +67,7 @@ public class Bird {
             }
         }
 
-    public void setY(int i) {
+    public void setY(int value) {
+            y = value;
     }
 }

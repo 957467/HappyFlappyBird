@@ -2,12 +2,12 @@ package ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.Components.TextButton;
 import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.MyGdxGame;
+import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.Components.MovingBackground;
 
 public class ScreenMenu implements Screen {
 
@@ -83,15 +83,5 @@ public class ScreenMenu implements Screen {
         background.dispose();
         buttonExit.dispose();
         buttonStart.dispose();
-    }
-
-    private class MovingBackground {
-        public void draw(SpriteBatch batch) {
-
-        }
-
-        public void dispose() {
-
-        }
     }
 }

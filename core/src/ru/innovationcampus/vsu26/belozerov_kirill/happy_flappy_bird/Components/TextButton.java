@@ -29,7 +29,7 @@ public class TextButton {
         textWidth = (int) gl.width;
         textHeight = (int) gl.height;
 
-        texture = new Texture("button_bg.png");
+        texture = new Texture("button/button_bg.png");
         buttonWidth = texture.getWidth();
         buttonHeight = texture.getHeight();
 

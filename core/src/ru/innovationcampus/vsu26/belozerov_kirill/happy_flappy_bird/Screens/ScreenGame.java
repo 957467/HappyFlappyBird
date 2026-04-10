@@ -33,7 +33,7 @@ public class ScreenGame implements Screen {
 
         initTubes();
         background = new MovingBackground("backgrounds/game_bg.png");
-        bird = new Bird(20, SCR_HEIGHT / 2, 10, 250, 200);
+        bird = new Bird(20, SCR_HEIGHT / 2, 10, 150, 150);
         pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginRight, SCR_HEIGHT - pointCounterMarginTop);
     }
 
