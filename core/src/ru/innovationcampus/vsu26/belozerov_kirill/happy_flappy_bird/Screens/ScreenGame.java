@@ -4,7 +4,11 @@ import static ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.MyGdx
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import java.awt.Graphics;
+import java.nio.channels.Pipe;
 
 import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.characters.Bird;
 import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.Components.MovingBackground;
@@ -24,7 +28,6 @@ public class ScreenGame implements Screen {
 
     int tubeCount = 3;
     Tube[] tubes;
-
     int gamePoints;
     boolean isGameOver;
 
@@ -33,7 +36,7 @@ public class ScreenGame implements Screen {
 
         initTubes();
         background = new MovingBackground("backgrounds/game_bg.png");
-        bird = new Bird(20, SCR_HEIGHT / 2, 10, 150, 150);
+        bird = new Bird(20, SCR_HEIGHT / 2, 10, 15, 15);
         pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginRight, SCR_HEIGHT - pointCounterMarginTop);
     }
 

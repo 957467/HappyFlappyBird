@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 import java.util.Random;
 
+import ru.innovationcampus.vsu26.belozerov_kirill.happy_flappy_bird.Components.PointCounter;
+
 
 public class Tube {
 
@@ -16,6 +18,8 @@ public class Tube {
     Random random;
 
     int x, gapY;
+    int gapP = 0;
+    int gapSpeed = 0;
     int distanceBetweenTubes;
 
     boolean isPointReceived;
@@ -25,6 +29,7 @@ public class Tube {
     final int height = 700;
     int gapHeight = 400;
     int padding = 100;
+
 
     public Tube(int tubeCount, int tubeIdx) {
         random = new Random();
@@ -40,26 +45,31 @@ public class Tube {
     }
 
     public void draw(Batch batch) {
-        batch.draw(textureUpperTube, x, gapY + gapHeight / 2, width, height);
-        batch.draw(textureDownTube, x, gapY - gapHeight / 2 - height, width, height);
+        batch.draw(textureUpperTube, x, getGapY() + gapHeight / 2, width, height);
+        batch.draw(textureDownTube, x, getGapY() - gapHeight / 2 - height, width, height);
     }
 
     public void move() {
         x -= speed;
+        gapP += gapSpeed;
+
+
         if (x < -width) {
             isPointReceived = false;
             x = SCR_WIDTH + distanceBetweenTubes;
             gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
+            gapP = 0;
+            gapSpeed = random.nextInt(-1,2);
         }
     }
 
     public boolean isHit(Bird bird) {
 
 
-        if (bird.y <= gapY - gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x + width)
+        if (bird.y <= getGapY() - gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x + width)
             return true;
 
-        if (bird.y + bird.height >= gapY + gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x + width)
+        if (bird.y + bird.height >= getGapY() + gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x + width)
             return true;
 
         return false;
@@ -76,5 +86,9 @@ public class Tube {
     public void dispose() {
         textureDownTube.dispose();
         textureUpperTube.dispose();
+    }
+
+    public int getGapY() {
+        return gapY + gapP;
     }
 }
